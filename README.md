@@ -1,18 +1,13 @@
 # spawn-mocha-parallel
 
-This let you run your test in parallel by spawning several child processes.
+This lets you run your tests in parallel by spawning several child processes.
 It was designed to be used with [gulp][gulp], but since it relies only
-on npm, it may be used within various configuration.
-
-[![NPM version](http://img.shields.io/npm/v/spawn-mocha-parallel.svg)](https://npmjs.org/package/spawn-mocha-parallel) 
-[![Downloads](http://img.shields.io/npm/dm/spawn-mocha-parallel.svg)](https://npmjs.org/package/spawn-mocha-parallel)
-[![Dependency Status](https://david-dm.org/sebv/spawn-mocha-parallel.svg)](https://david-dm.org/sebv/spawn-mocha-parallel)
-[![devDependency Status](https://david-dm.org/sebv/spawn-mocha-parallel/dev-status.svg)](https://david-dm.org/sebv/spawn-mocha-parallel#info=devDependencies)
+on npm, it may be used within various configurations.
 
 ## Credits
 
-This was originaly a fork of [gulp-spawn-mocha] but has deviated a lot since
-then.
+This is a fork of [sebv/spawn-mocha-parallel],
+which was originally a fork of [gulp-spawn-mocha] but has deviated a lot since then.
 
 ## Usage
 
@@ -21,7 +16,7 @@ Using built in mochaStream:
 ```js
 var mochaStream = require('spawn-mocha-parallel').mochaStream;
 
-var mocha = mochaStream({concurrency: 10});
+var mocha = mochaStream({ concurrency: 10 });
 
 gulp.task('test-mocha', function() {
   return gulp.src('**/*-specs.js', {read: false}) 
@@ -30,7 +25,6 @@ gulp.task('test-mocha', function() {
 });
 
 ```
-
 Using SpawnMocha
 
 ```js
@@ -76,7 +70,7 @@ gulp.task('test-custom-mocha', function() {
 ## Options
 
 - concurrency: # of mocha instance running in parallel (default: 1)
-- env mocha running env, (default: process.env)
+- env: mocha running env, (default: process.env, can be function)
 - flags: mocha flags (default: none)
 - liveOutput: print output direct to console
 - errorSummary: show error summary (default: true)

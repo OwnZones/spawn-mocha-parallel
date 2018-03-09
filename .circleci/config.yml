@@ -1,0 +1,46 @@
+version: 2
+jobs:
+  build:
+    docker:
+      # the image running the build
+      - image: circleci/node:8.9.1
+    steps:
+      - checkout
+
+      # set up authentication to access private npm repo
+      - run: echo "//registry.npmjs.org/:_authToken=$NPM_AUTH_TOKEN" > .npmrc
+
+      # restore npm cache
+      - restore_cache:
+          keys:
+            - npm-cache-{{ .Branch }}-{{ checksum "package.json" }}
+
+      - run:
+          name: Install dependencies
+          command: npm install -s
+
+      # save npm cache to speed up future builds
+      - save_cache:
+          key: npm-cache-{{ .Branch }}-{{ checksum "package.json" }}
+          paths:
+            - node_modules
+
+      # run tests
+      - run: mkdir ./junit
+      - run:
+          command: node_modules/gulp/bin/gulp.js test
+          environment:
+            MOCHA_FILE: ./junit/test-results.xml
+
+      - store_test_results:
+          path: ./junit
+
+      - store_artifacts:
+          path: ./junit
+
+      # deploy if we're in master
+      - deploy:
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              node_modules/publish/bin/publish.js
+            fi
