@@ -1,1 +1,3 @@
 .circleci
+.idea
+node_modules
