@@ -129,7 +129,6 @@ gulp.task('test-live-output-with-prepend', function() {
     .pipe(mocha);
 });
 
-
 gulp.task('test', function() {
   return runSequence(
     'test-mocha',

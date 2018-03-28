@@ -28,6 +28,7 @@
     "colors": "^1.0.3",
     "lodash": "^3.3.1",
     "mocha": "^2.1.0",
+    "mocha-circleci-reporter": "0.0.2",
     "split": "^0.3.3",
     "stream-buffers": "^2.1.0",
     "through": "^2.3.6"
