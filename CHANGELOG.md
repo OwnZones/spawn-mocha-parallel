@@ -1,4 +1,4 @@
-## [1.3.5] - 2018-03-29
+## [1.3.6] - 2018-03-29
 ### Added
 - Avoid unhandled stream errors for MochaStream
 
