@@ -1,3 +1,7 @@
+## [1.3.8] - 2018-03-29
+### Added
+- Add support to toggle test output (showOutput) option
+
 ## [1.3.7] - 2018-03-29
 ### Changed
 - Updated to newer nodejs syntax
