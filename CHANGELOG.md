@@ -1,3 +1,7 @@
+## [1.3.8] - 2018-04-04
+### Changed
+- Added file logging
+
 ## [1.3.7] - 2018-03-29
 ### Changed
 - Updated to newer nodejs syntax
