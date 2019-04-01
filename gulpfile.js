@@ -1,14 +1,13 @@
 "use strict";
 
 var gulp = require('gulp'),
-    runSequence = require('gulp4-run-sequence'),
-    mochaStream = require('./lib').mochaStream,
-    SpawnMocha = require('./lib').SpawnMocha,
-    _ = require('lodash'),
-    through = require('through'),
-    assert = require('assert'),
-    File = require('vinyl'),
-    from = require('from');
+  mochaStream = require('./lib').mochaStream,
+  SpawnMocha = require('./lib').SpawnMocha,
+  _ = require('lodash'),
+  through = require('through'),
+  assert = require('assert'),
+  File = require('vinyl'),
+  from = require('from');
 
 function customMocha(opts) {
   opts = opts || {};
@@ -128,13 +127,11 @@ gulp.task('test-live-output-with-prepend', function() {
     .pipe(mocha);
 });
 
-gulp.task('test', function() {
-  return runSequence(
-    'test-mocha',
-    'test-custom-mocha',
-    'test-live-output',
-    'test-live-output-with-prepend',
-    'test-live-output-with-file',
-    'test-with-file'
-  );
-});
+gulp.task('test', gulp.series(
+  'test-mocha',
+  'test-custom-mocha',
+  'test-live-output',
+  'test-live-output-with-prepend',
+  'test-live-output-with-file',
+  'test-with-file'
+));
