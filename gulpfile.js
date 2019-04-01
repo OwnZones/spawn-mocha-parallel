@@ -1,15 +1,13 @@
 "use strict";
 
 var gulp = require('gulp'),
-    mochaStream = require('./lib').mochaStream,
-    SpawnMocha = require('./lib').SpawnMocha,
-    _ = require('lodash'),
-    through = require('through'),
-    Q = require('q'),
-    runSequence = Q.denodeify(require('run-sequence')),
-    assert = require('assert'),
-    File = require('vinyl'),
-    from = require('from');
+  mochaStream = require('./lib').mochaStream,
+  SpawnMocha = require('./lib').SpawnMocha,
+  _ = require('lodash'),
+  through = require('through'),
+  assert = require('assert'),
+  File = require('vinyl'),
+  from = require('from');
 
 function customMocha(opts) {
   opts = opts || {};
@@ -24,10 +22,10 @@ function customMocha(opts) {
   }).on('end', function() {
     if(errors.length > 0) {
       console.error('ERROR SUMMARY: ');
-      _(errors).each(function(err) {
+      _.each(errors, function(err) {
         console.error(err);
         console.error(err.stack);
-      }).value();
+      });
       stream.emit('error', "Some tests failed.");
     }
     stream.emit('end');
@@ -46,13 +44,13 @@ gulp.task('test-mocha', function() {
   });
   var mocha = mochaStream({concurrency: 10});
   var srcFiles = [];
-  _(10).times(function() {
+  _.times(10, function() {
     srcFiles.push(new File({
       cwd: "/",
       base: "test/",
       path: "test/a-test-specs.js",
     }));
-  }).value();
+  });
   return from(srcFiles)
     .pipe(mocha)
     .on('error', console.error)
@@ -129,13 +127,11 @@ gulp.task('test-live-output-with-prepend', function() {
     .pipe(mocha);
 });
 
-gulp.task('test', function() {
-  return runSequence(
-    'test-mocha',
-    'test-custom-mocha',
-    'test-live-output',
-    'test-live-output-with-prepend',
-    'test-live-output-with-file',
-    'test-with-file'
-  );
-});
+gulp.task('test', gulp.series(
+  'test-mocha',
+  'test-custom-mocha',
+  'test-live-output',
+  'test-live-output-with-prepend',
+  'test-live-output-with-file',
+  'test-with-file'
+));
