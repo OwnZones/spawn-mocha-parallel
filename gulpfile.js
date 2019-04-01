@@ -1,12 +1,11 @@
 "use strict";
 
 var gulp = require('gulp'),
+    runSequence = require('gulp4-run-sequence'),
     mochaStream = require('./lib').mochaStream,
     SpawnMocha = require('./lib').SpawnMocha,
     _ = require('lodash'),
     through = require('through'),
-    Q = require('q'),
-    runSequence = Q.denodeify(require('run-sequence')),
     assert = require('assert'),
     File = require('vinyl'),
     from = require('from');
