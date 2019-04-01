@@ -24,10 +24,10 @@ function customMocha(opts) {
   }).on('end', function() {
     if(errors.length > 0) {
       console.error('ERROR SUMMARY: ');
-      _(errors).each(function(err) {
+      _.each(errors, function(err) {
         console.error(err);
         console.error(err.stack);
-      }).value();
+      });
       stream.emit('error', "Some tests failed.");
     }
     stream.emit('end');
@@ -46,13 +46,13 @@ gulp.task('test-mocha', function() {
   });
   var mocha = mochaStream({concurrency: 10});
   var srcFiles = [];
-  _(10).times(function() {
+  _.times(10, function() {
     srcFiles.push(new File({
       cwd: "/",
       base: "test/",
       path: "test/a-test-specs.js",
     }));
-  }).value();
+  });
   return from(srcFiles)
     .pipe(mocha)
     .on('error', console.error)

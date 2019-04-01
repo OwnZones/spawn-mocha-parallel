@@ -46,7 +46,7 @@ function mochaStream(opts) {
   }).on('end', function() {
     if(errors.length > 0) {
       console.error('ERROR SUMMARY: ');
-      _(errors).each(function(err) {
+      _.each(errors, function(err) {
         console.error(err);
         console.error(err.stack);
       });
