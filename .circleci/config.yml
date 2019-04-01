@@ -41,6 +41,9 @@ jobs:
       # deploy if we're in master
       - deploy:
           command: |
-            if [ "${CIRCLE_BRANCH}" == "master" ]; then
-              node_modules/publish/bin/publish.js
+            if [ "$CIRCLE_BRANCH" == "master" ]; then
+              echo "We're on master so we're publishing"
+              npm publish
+            else
+              echo "We're not on master so we're not publishing"
             fi
