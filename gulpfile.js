@@ -114,8 +114,7 @@ gulp.task('test-live-output-with-prepend', function() {
   var mocha = mochaStream({
     liveOutput: true,
     liveOutputPrepend: 'client --> ',
-    concurrency: 1,
-    flags: { R: "tap" }
+    concurrency: 1
   });
   var srcFiles = [];
   srcFiles.push(new File({
